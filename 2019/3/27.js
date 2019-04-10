@@ -32,14 +32,18 @@ class TreeNode {
    * 是否是单值的
    */
   isUni() {
+    //如果存在左孩子
     if (this.left) {
+      //如果值不和自己相等
       if (this.left.value != this.value) {
         return false
       }
+      //如果孩子不是单值
       if (!this.left.isUni()) {
         return false
       }
     }
+    //右孩子相同处理
     if (this.right) {
       if (this.right.value != this.value) {
         return false
@@ -48,6 +52,7 @@ class TreeNode {
         return false
       }
     }
+    //没有孩子，或所有孩子都符合
     return true
   }
 }
@@ -55,7 +60,7 @@ class TreeNode {
 /**
  * 计算单值子树的个数
  * @param {TreeNode} root 
- * 
+ * @returns {number}
  */
 function findSubUniTreeCount(root) {
   let total = 0
@@ -63,7 +68,8 @@ function findSubUniTreeCount(root) {
   return total
 
   /**
-   * 递归
+   * 递归遍历树的所有节点
+   * 发现单值子树就累加total
    * @param {TreeNode} node 
    */
   function r(node) {
