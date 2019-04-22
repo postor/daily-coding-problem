@@ -10,39 +10,37 @@ Given the set of words 'bed', 'bath', 'bedbath', 'and', 'beyond', and the string
 
 /**
  * 找到句子构成
- * @param {string[]} words 
- * @param {string} str 
+ * @param {string[]} words
+ * @param {string} str
  */
-function findConstruction(words, str) {
-  let rtn = null
-  r()
-  return rtn
+function findConstruction (words, str) {
+  return r()
   /**
-   * 
-   * @param {number} i 
-   * @param {string[]} seqence 
+   * 递归找结果
+   * @param {number} i
+   * @param {string[]} seqence
    */
-  function r(i = 0, seqence = []) {
-    //有一个结果就停止，节约运算
-    if (rtn) return
-    //有结果
-    if (i == str.length) {
-      rtn = seqence
-      return
+  function r (i = 0, seqence = []) {
+    // 有结果
+    if (i === str.length) {
+      return seqence
     }
-    //尝试所有词，如果匹配则递归尝试
-    words
+    // 尝试所有词，如果匹配则递归尝试
+    let canMatch = words
       .filter(word => match(i, word))
-      .forEach(word => r(i + word.length, [...seqence, word]))
+    for (let j = 0; j < canMatch.length; j++) {
+      let word = canMatch[j]
+      let rtn = r(i + word.length, [...seqence, word])
+      if (rtn) return rtn
+    }
   }
-
 
   /**
    * 从str第i个下标开始匹配word
-   * @param {number} i 
-   * @param {string} word 
+   * @param {number} i
+   * @param {string} word
    */
-  function match(i, word) {
+  function match (i, word) {
     for (let j = 0; j < word.length; j++) {
       if (str[i + j] !== word[j]) return false
     }
@@ -50,5 +48,5 @@ function findConstruction(words, str) {
   }
 }
 
-console.log(findConstruction(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"))
-console.log(findConstruction(['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"))
+console.log(findConstruction(['quick', 'brown', 'the', 'fox'], 'thequickbrownfox'))
+console.log(findConstruction(['bed', 'bath', 'bedbath', 'and', 'beyond'], 'bedbathandbeyond'))
